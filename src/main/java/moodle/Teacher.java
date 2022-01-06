@@ -54,4 +54,8 @@ public class Teacher{
 	public void addSubject(int i){
 		subjects.add(i);
 	}
+
+	public List<Integer> getList(){
+		return subjects;
+	}
 }
