@@ -1,9 +1,19 @@
 package moodle;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Moodle {
+
+    static Scanner read = new Scanner(System.in);
+
+    List <Student> students = new ArrayList<>();
+    List <Teacher> teachers = new ArrayList<>();
+    List <Subject> subjects = new ArrayList<>();
+
     public static void main(String[] args) {
+        
         Question q = new Question();
         q.setStatement("Enunciado Enunciado Enunciado Enunciado Enunciado Enunciado ");
         String [] alts = {"correta", "errada 1", "errada 2", "errada 3"};
@@ -15,10 +25,20 @@ public class Moodle {
         for(int i  = 0; i < 4; i++){
             System.out.println((i+1) + ") " + options[i]);
         }
-        Scanner s = new Scanner(System.in);
-        int a = s.nextInt();
+        int a = read.nextInt();
         System.out.println(q.answerQuestion(a));
-        s.close();
+        read.close();
     }
     
+
+    public void createSubject(int teacherId){
+		System.out.println("Insira o nome da disciplina:");
+		String nm = read.nextLine();
+		System.out.println("Insira a descricao da disciplina:");
+		String desc = read.nextLine();
+        Subject nmSubject = new Subject(nm,desc);
+        subjects.add(nmSubject);
+        // Adiciona o Id da nova disciplina a lista do Professor
+        (teachers.get(teacherId)).addSubject(nmSubject.getId());
+    }
 }
