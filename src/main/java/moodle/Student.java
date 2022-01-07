@@ -9,10 +9,23 @@ public class Student{
 	private String name;
 	private String email;
 	private String password;
+	// Lista de disciplinas do aluno
 	List <Integer> subjects = new ArrayList<>();
+
+	public Student(String nm, String em, String pswrd){
+		id = tam;
+		tam++;
+		setName(nm);
+		setEmail(em);
+		setPassword(pswrd);
+	}
 
 	public void setId(int i){
 		id = i;
+	}
+
+	public int getId(){
+		return id;
 	}
 
 	public void setName(String n){
@@ -31,14 +44,14 @@ public class Student{
 		return email;
 	}
 
-	public void setSenha(String pswrd){
+	public void setPassword(String pswrd){
 		password = pswrd;
 	}
 
 	public String getPassword(){
 		return password;
 	}
-
+	// adiciona o id na lista de disciplinas do aluno
 	public void addSubject(int i){
 		subjects.add(i);
 	}

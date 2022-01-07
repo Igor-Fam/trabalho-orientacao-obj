@@ -12,9 +12,16 @@ public class Test {
         id = i;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void setTitle(String t){
         title = t;
     }
 
+    public String getTitle(){
+        return title;
+    }
     
 }

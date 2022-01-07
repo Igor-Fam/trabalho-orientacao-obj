@@ -8,12 +8,16 @@ public class Moodle {
 
     static Scanner read = new Scanner(System.in);
 
+    // Listas que armazenam os estudantes, professores e disciplinas
+
     List <Student> students = new ArrayList<>();
     List <Teacher> teachers = new ArrayList<>();
     List <Subject> subjects = new ArrayList<>();
 
     public static void main(String[] args) {
         
+        // Teste
+
         Question q = new Question();
         q.setStatement("Enunciado Enunciado Enunciado Enunciado Enunciado Enunciado ");
         String [] alts = {"correta", "errada 1", "errada 2", "errada 3"};
@@ -30,7 +34,7 @@ public class Moodle {
         read.close();
     }
     
-
+    // Funcao utilizada pra criar uma nova disciplina
     public void createSubject(int teacherId){
 		System.out.println("Insira o nome da disciplina:");
 		String nm = read.nextLine();
@@ -38,6 +42,7 @@ public class Moodle {
 		String desc = read.nextLine();
         Subject nmSubject = new Subject(nm,desc);
         subjects.add(nmSubject);
+        
         // Adiciona o Id da nova disciplina a lista do Professor
         (teachers.get(teacherId)).addSubject(nmSubject.getId());
     }

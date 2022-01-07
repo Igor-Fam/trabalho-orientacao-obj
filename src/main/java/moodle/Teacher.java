@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 public class Teacher{
 	
-	Scanner read = new Scanner(System.in);
+	static Scanner read = new Scanner(System.in);
 	private static int tam=1;
 	private int id;
 	private String name;
 	private String email;
 	private String password;
+	// Lista de disciplinas do professor
 	List <Integer> subjects = new ArrayList<>();
 
 	public Teacher(String nm, String em, String pswrd){
@@ -22,9 +23,12 @@ public class Teacher{
 		setPassword(pswrd);
 	}
 
-
 	public void setId(int i){
 		id = i;
+	}
+
+	public int getId(){
+		return id;
 	}
 
 	public void setName(String n){
