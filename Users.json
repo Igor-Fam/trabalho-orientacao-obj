@@ -1,0 +1,18 @@
+[
+  {
+    "subjects": [],
+    "id": 1,
+    "name": "igro",
+    "email": "igro@igro.com",
+    "password": "12354",
+    "userType": 0
+  },
+  {
+    "subjects": [],
+    "id": 2,
+    "name": "jula",
+    "email": "jula@jula.com",
+    "password": "12354",
+    "userType": 1
+  }
+]

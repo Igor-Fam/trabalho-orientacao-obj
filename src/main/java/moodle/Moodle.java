@@ -5,8 +5,15 @@
 package moodle;
 
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Moodle {
 
@@ -14,15 +21,15 @@ public class Moodle {
 
     // Listas que armazenam os estudantes, professores e disciplinas
 
-    List <Student> students = new ArrayList<>();
-    List <Teacher> teachers = new ArrayList<>();
-    List <Subject> subjects = new ArrayList<>();
+    static List <User> users = new ArrayList<>();
+    static List <User> usersRead = new ArrayList<>();
+    static List <Subject> subjects = new ArrayList<>();
 
     public static void main(String[] args) {
         
         // Teste
 
-        Question q = new Question();
+/*         Question q = new Question();
         q.setStatement("Enunciado Enunciado Enunciado Enunciado Enunciado Enunciado ");
         String [] alts = {"correta", "errada 1", "errada 2", "errada 3"};
         q.setAlternatives(alts);
@@ -35,7 +42,31 @@ public class Moodle {
         }
         int a = read.nextInt();
         System.out.println(q.answerQuestion(a));
-        read.close();
+        read.close(); */
+        try{
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            User student = new Student("igro", "igro@igro.com", "12354");
+            User teacher = new Teacher("jula", "jula@jula.com", "12354");
+            users.add(student);
+            users.add(teacher);
+
+            String jsonUser = gson.toJson(users);
+            
+            FileWriter fileWriter = new FileWriter("./Users.json");
+            fileWriter.write(jsonUser);
+            fileWriter.flush();
+            fileWriter.close();
+
+            FileReader fileReader = new FileReader("./Users.json");
+
+            usersRead = gson.fromJson(fileReader, new TypeToken<List<User>>(){}.getType());
+
+            System.out.println(usersRead.toString());
+
+        }catch(Exception e){
+            System.out.println("Arquivo nao encontrado!");
+        }
+
     }
     
     // Funcao utilizada pra criar uma nova disciplina
@@ -48,6 +79,6 @@ public class Moodle {
         subjects.add(nmSubject);
         
         // Adiciona o Id da nova disciplina a lista do Professor
-        (teachers.get(teacherId)).addSubject(nmSubject.getId());
+        ((Teacher)users.get(teacherId)).addSubject(nmSubject.getId());
     }
 }
