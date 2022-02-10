@@ -4,10 +4,8 @@
 
 package moodle;
 
-import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import control.*;
+
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,9 +19,11 @@ public class Moodle {
 
     // Listas que armazenam os estudantes, professores e disciplinas
 
-    static List <User> users = new ArrayList<>();
-    static List <User> usersRead = new ArrayList<>();
-    static List <Subject> subjects = new ArrayList<>();
+    static ArrayList <Admin> admins = new ArrayList<>();
+    static ArrayList <Teacher> teachers = new ArrayList<>();
+    static ArrayList <Student> students = new ArrayList<>();
+    static ArrayList <User> users = new ArrayList<>();
+    static ArrayList <Subject> subjects = new ArrayList<>();
 
     public static void main(String[] args) {
         
@@ -43,30 +43,19 @@ public class Moodle {
         int a = read.nextInt();
         System.out.println(q.answerQuestion(a));
         read.close(); */
-        try{
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            User student = new Student("igro", "igro@igro.com", "12354");
-            User teacher = new Teacher("jula", "jula@jula.com", "12354");
-            users.add(student);
-            users.add(teacher);
+        
+        User student = new Student("igro", "igro@igro.com", "12354");
+        User teacher = new Teacher("jula", "jula@jula.com", "12354");
+        
+        Login.writeUser(student.getClass().getSimpleName(), student);
+        Login.writeUser(teacher.getClass().getSimpleName(), teacher);
 
-            String jsonUser = gson.toJson(users);
-            
-            FileWriter fileWriter = new FileWriter("./Users.json");
-            fileWriter.write(jsonUser);
-            fileWriter.flush();
-            fileWriter.close();
+        students = Login.readStudents();
+        teachers = Login.readTeachers();
 
-            FileReader fileReader = new FileReader("./Users.json");
-
-            usersRead = gson.fromJson(fileReader, new TypeToken<List<User>>(){}.getType());
-
-            System.out.println(usersRead.toString());
-
-        }catch(Exception e){
-            System.out.println("Arquivo nao encontrado!");
-        }
-
+        System.out.println(students.get(0).email);
+        System.out.println(teachers.get(0).email);
+        
     }
     
     // Funcao utilizada pra criar uma nova disciplina

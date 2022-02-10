@@ -8,6 +8,10 @@ public abstract class User {
     protected int userType;
     protected static int tam=1;
 
+    public User(){
+        
+    }
+
     public void setId(int i){
 		id = i;
 	}
