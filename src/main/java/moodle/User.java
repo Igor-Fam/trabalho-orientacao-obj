@@ -1,23 +1,22 @@
 package moodle;
 
 public abstract class User {
-    protected int id;
+    protected String username;
 	protected String name;
 	protected String email;
 	protected String password;
     protected int userType;
-    protected static int tam=1;
 
     public User(){
         
     }
 
-    public void setId(int i){
-		id = i;
+    public void setUsername(String s){
+		username = s;
 	}
 
-	public int getId(){
-		return id;
+	public String getUsername(){
+		return username;
 	}
 
 	public void setName(String n){
@@ -40,7 +39,7 @@ public abstract class User {
 		password = pswrd;
 	}
 
-	public String getPassword(){
-		return password;
+	public boolean verifyPassword(String pswrd){
+		return password.equals(pswrd);
 	}
 }

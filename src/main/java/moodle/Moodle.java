@@ -6,14 +6,12 @@ package moodle;
 
 import control.*;
 
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 public class Moodle {
+
+    public static User authUser;
 
     static Scanner read = new Scanner(System.in);
 
@@ -44,17 +42,28 @@ public class Moodle {
         System.out.println(q.answerQuestion(a));
         read.close(); */
         
-        User student = new Student("igro", "igro@igro.com", "12354");
-        User teacher = new Teacher("jula", "jula@jula.com", "12354");
-        
-        Login.writeUser(student.getClass().getSimpleName(), student);
-        Login.writeUser(teacher.getClass().getSimpleName(), teacher);
+        for(int i = 0; i<10; i++){
+            User student = new Student("usuario"+i, "usuario", "usuario@usuario.com", ""+i);
+            Login.writeUser(student);
+        }
+        for(int i = 10; i<20; i++){
+            User student = new Teacher("usuario"+i, "usuario", "usuario@usuario.com", ""+i);
+            Login.writeUser(student);
+        }
+        for(int i = 20; i<30; i++){
+            User student = new Admin("usuario"+i, "usuario", "usuario@usuario.com", ""+i);
+            Login.writeUser(student);
+        }
+        while(true){
+            Scanner s = new Scanner(System.in);
+            String nome = s.nextLine();
+            String senha = s.nextLine();
+            Login.Authenticate(nome, senha);
+        }
+        //students = Login.readStudents();
 
-        students = Login.readStudents();
-        teachers = Login.readTeachers();
-
-        System.out.println(students.get(0).email);
-        System.out.println(teachers.get(0).email);
+        //System.out.println(students.get(0).email);
+        //System.out.println(teachers.get(0).email);
         
     }
     

@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import moodle.*;
 
@@ -17,7 +18,7 @@ public class Login {
         Gson gson = new Gson();
         try{
             BufferedReader fileReader = new BufferedReader(new FileReader("./Students.json"));
-            students.add(gson.fromJson(fileReader, Student.class));
+            students = gson.fromJson(fileReader, new TypeToken<ArrayList<Student>>(){}.getType());
         }catch(FileNotFoundException e){
             System.out.println("Arquivo nao encontrado!");
         }
@@ -30,7 +31,7 @@ public class Login {
         Gson gson = new Gson();
         try{
             BufferedReader fileReader = new BufferedReader(new FileReader("./Teachers.json"));
-            teachers.add(gson.fromJson(fileReader, Teacher.class));
+            teachers = gson.fromJson(fileReader, new TypeToken<ArrayList<Teacher>>(){}.getType());
         }catch(FileNotFoundException e){
             System.out.println("Arquivo nao encontrado!");
         }
@@ -43,7 +44,7 @@ public class Login {
         Gson gson = new Gson();
         try{
             BufferedReader fileReader = new BufferedReader(new FileReader("./Admins.json"));
-            admins.add(gson.fromJson(fileReader, Admin.class));
+            admins = gson.fromJson(fileReader, new TypeToken<ArrayList<Admin>>(){}.getType());
         }catch(FileNotFoundException e){
             System.out.println("Arquivo nao encontrado!");
         }
@@ -51,17 +52,70 @@ public class Login {
         return admins;
     }
 
-    public static void writeUser(String type, User user){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonUser = gson.toJson(user);   
+    public static <T> void writeUser(T user){
+        ArrayList<T> users = new ArrayList<>();
+        Gson gson = new Gson();
+        try{
+            BufferedReader fileReader = new BufferedReader(new FileReader("./" + user.getClass().getSimpleName() + "s.json"));
+            users = gson.fromJson(fileReader, new TypeToken<ArrayList<T>>(){}.getType());
+            users.add(user);
+        }catch(FileNotFoundException e){
+            users.add(user);
+        }
+        //System.out.println(users.toString());
+        gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonUsers = gson.toJson(users);   
         try{         
-            FileWriter fileWriter = new FileWriter("./" + type + "s.json", true);
-            fileWriter.write(jsonUser);
+            FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+            fileWriter.write(jsonUsers);
             fileWriter.flush();
             fileWriter.close();
 
         }catch(Exception e){
             System.out.println("Arquivo nao encontrado!");
         }
+    }
+
+    public static void Authenticate(String usr, String pswrd){
+        ArrayList<Student> students = readStudents();
+        for (Student student : students) {
+            //System.out.println(student.getUsername());
+            if (student.getUsername().equals(usr)){
+                if (student.verifyPassword(pswrd)){
+                    Moodle.authUser = student;
+                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                } else {
+                    System.out.println("Senha invalida!");
+                }
+                return;
+            }
+        }
+        ArrayList<Teacher> teachers = readTeachers();
+        for (Teacher teacher : teachers) {
+            //System.out.println(teacher.getUsername());
+            if (teacher.getUsername().equals(usr)){
+                if (teacher.verifyPassword(pswrd)){
+                    Moodle.authUser = teacher;
+                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                } else {
+                    System.out.println("Senha invalida!");
+                }
+                return;
+            }
+        }
+        ArrayList<Admin> admins = readAdmins();
+        for (Admin admin : admins) {
+            //System.out.println(admin.getUsername());
+            if (admin.getUsername().equals(usr)){
+                if (admin.verifyPassword(pswrd)){
+                    Moodle.authUser = admin;
+                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                } else {
+                    System.out.println("Senha invalida!");
+                }
+                return;
+            }
+        }
+        System.out.println("Nome de usuario invalido");
     }
 }

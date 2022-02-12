@@ -11,9 +11,8 @@ public class Student extends User{
 	// Lista de disciplinas do aluno
 	List <Integer> subjects = new ArrayList<>();
 
-	public Student(String nm, String em, String pswrd){
-		id = tam;
-		tam++;
+	public Student(String usr, String nm, String em, String pswrd){
+		setUsername(usr);
 		setName(nm);
 		setEmail(em);
 		setPassword(pswrd);
