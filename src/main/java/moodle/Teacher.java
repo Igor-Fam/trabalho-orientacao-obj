@@ -4,6 +4,8 @@
 
 package moodle;
 
+import control.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ public class Teacher extends User{
 	
 	static Scanner read = new Scanner(System.in);
 	// Lista de disciplinas do professor
-	List <Integer> subjects = new ArrayList<>();
+	List <String> subjects = new ArrayList<>();
 
 	public Teacher(String usr, String nm, String em, String pswrd){
 		setUsername(usr);
@@ -22,11 +24,11 @@ public class Teacher extends User{
 		userType = 1;
 	}
 
-	public void addSubject(int i){
+	public void addSubject(String i){
 		subjects.add(i);
 	}
 
-	public List<Integer> getSubjects(){
+	public List<String> getSubjects(){
 		return subjects;
 	}
 }

@@ -14,6 +14,7 @@ import moodle.Admin;
 import moodle.Moodle;
 import moodle.Student;
 import moodle.Teacher;
+import moodle.User;
 
 public class Login {
 
@@ -56,9 +57,9 @@ public class Login {
         return admins;
     }
 
-    public static <T> void writeUser(T user){
-        ArrayList<T> users = new ArrayList<>();
+    public static <T> void writeUser(User user){
         Gson gson = new Gson();
+        ArrayList<User> users = new ArrayList<>();
         try{
             BufferedReader fileReader = new BufferedReader(new FileReader("./" + user.getClass().getSimpleName() + "s.json"));
             users = gson.fromJson(fileReader, new TypeToken<ArrayList<T>>(){}.getType());
@@ -66,7 +67,12 @@ public class Login {
         }catch(FileNotFoundException e){
             users.add(user);
         }
-        //System.out.println(users.toString());
+
+        if(!checkAvailableUsername(user)){
+            System.out.println("Nome de usuario indisponivel!");
+            return;
+        }
+
         gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonUsers = gson.toJson(users);   
         try{         
@@ -121,5 +127,167 @@ public class Login {
             }
         }
         System.out.println("Nome de usuario invalido");
+    }
+
+    public static boolean checkAvailableUsername(User user){
+        ArrayList<Student> students = readStudents();
+
+        for (Student s : students) {
+            if(s.getUsername().equals(user.getUsername()))
+                return false;
+        }
+        ArrayList<Teacher> teachers = readTeachers();
+        for (Teacher t : teachers) {
+            if(t.getUsername().equals(user.getUsername()))
+                return false;
+        }
+        ArrayList<Admin> admins = readAdmins();
+        for (Admin a : admins) {
+            if(a.getUsername().equals(user.getUsername()))
+                return false;
+        }
+
+        return true;
+    }
+
+    public static void editUser(User user){
+        int i;
+        if(user.getClass().getSimpleName().equals("Student")){
+            ArrayList<Student> users = readStudents();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    users.set(i, (Student)user); 
+                    break;
+                }
+            }
+            if(i == users.size()){
+                System.out.println("Usuario nao encontrado!");
+                return;
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
+        if(user.getClass().getSimpleName().equals("Teacher")){
+            ArrayList<Teacher> users = readTeachers();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    users.set(i, (Teacher)user); 
+                    break;
+                }
+            }
+            if(i == users.size()){
+                System.out.println("Usuario nao encontrado!");
+                return;
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
+        if(user.getClass().getSimpleName().equals("Admin")){
+            ArrayList<Admin> users = readAdmins();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    users.set(i, (Admin)user); 
+                    break;
+                }
+            }
+            if(i == users.size()){
+                System.out.println("Usuario nao encontrado!");
+                return;
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
+    }
+
+    public static void deleteUser(User user){
+        int i;
+        if(user.getClass().getSimpleName().equals("Student")){
+            ArrayList<Student> users = readStudents();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    System.out.println("tira o " + i);
+                    users.remove(i);
+                    break;
+                }
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
+        if(user.getClass().getSimpleName().equals("Teacher")){
+            ArrayList<Teacher> users = readTeachers();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    users.remove(i);
+                    break;
+                }
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
+        if(user.getClass().getSimpleName().equals("Admin")){
+            ArrayList<Admin> users = readAdmins();
+            for (i = 0; i < users.size(); i++) {
+                if(users.get(i).getUsername().equals(user.getUsername())){
+                    users.remove(i);
+                    break;
+                }
+            }
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonUsers = gson.toJson(users);   
+            try{         
+                FileWriter fileWriter = new FileWriter("./" + user.getClass().getSimpleName() + "s.json");
+                fileWriter.write(jsonUsers);
+                fileWriter.flush();
+                fileWriter.close();
+
+            }catch(Exception e){
+                System.out.println("Arquivo nao encontrado!");
+            }
+        }
     }
 }

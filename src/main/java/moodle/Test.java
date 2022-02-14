@@ -12,6 +12,10 @@ public class Test {
     private String title;
     List <Question> questions = new ArrayList<>();
 
+    public Test(int i){
+        id = i;
+    }
+
     public void setId(int i){
         id = i;
     }

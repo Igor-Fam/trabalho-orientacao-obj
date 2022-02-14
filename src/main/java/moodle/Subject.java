@@ -7,12 +7,14 @@ package moodle;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import control.Login;
+import control.SubjectFiles;
 import frame.*;
 
 
 public class Subject{
-	private static int tam=1;
-	private int id;
+	private String id;
 	private String name;
 	private String description;
 	// Listas de Postagens e avaliacoes
@@ -21,14 +23,15 @@ public class Subject{
 
 	static Scanner read = new Scanner(System.in);
 	
-	public Subject(String nm, String desc){
-		id = tam;
-		tam++;
+	public Subject(String id_, String nm, String desc){
+		id = id_;
 		setName(nm);
 		setDescription(desc);
 	}
 
-	public int getId(){
+	public Subject(){}
+
+	public String getId(){
 		return id;
 	}
 
@@ -56,6 +59,18 @@ public class Subject{
 		this.tests = tests;
 	}
 
+	public static void createSubject(){
+		Scanner s = new Scanner(System.in);
+		System.out.println("Insira o id da disciplina:");
+		String id = s.nextLine();
+		System.out.println("Insira o nome da disciplina:");
+		String nm = s.nextLine();
+		System.out.println("Insira a descricao da disciplina:");
+		String desc = s.nextLine();
+        Subject nmSubject = new Subject(id,nm,desc);
+        SubjectFiles.writeSubject(nmSubject);
+    }
+
 	// Cria uma nova postagem
 
 	public void createPost(){
@@ -63,7 +78,17 @@ public class Subject{
 		pst.setId(posts.size());
 		new Create_post_frame(pst).setVisible(true);
 		posts.add(pst);
+		SubjectFiles.editSubject(this);
 	}
 
+	public ArrayList<Student> getStudents(){
+		ArrayList<Student> students = Login.readStudents();
+		for (Student student : students) {
+			if(!student.subjects.contains(this.id)){
+				students.remove(student);
+			}
+		}
+		return students;
+	}
 
 }

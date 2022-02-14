@@ -24,9 +24,9 @@ public class Moodle {
     static ArrayList <Subject> subjects = new ArrayList<>();
 
     public static void main(String[] args) {
-        
-        // Teste
-
+        /* Subject.createSubject();
+        SubjectFiles.readSubject("q");
+        SubjectFiles.deleteSubject("q"); */
 /*         Question q = new Question();
         q.setStatement("Enunciado Enunciado Enunciado Enunciado Enunciado Enunciado ");
         String [] alts = {"correta", "errada 1", "errada 2", "errada 3"};
@@ -42,7 +42,7 @@ public class Moodle {
         System.out.println(q.answerQuestion(a));
         read.close(); */
         
-        for(int i = 0; i<10; i++){
+        /* for(int i = 0; i<10; i++){
             User student = new Student("usuario"+i, "usuario", "usuario@usuario.com", ""+i);
             Login.writeUser(student);
         }
@@ -58,7 +58,7 @@ public class Moodle {
             String nome = read.nextLine();
             String senha = read.nextLine();
             Login.Authenticate(nome, senha);
-        }
+        } */
         //students = Login.readStudents();
 
         //System.out.println(students.get(0).email);
@@ -66,16 +66,4 @@ public class Moodle {
         
     }
     
-    // Funcao utilizada pra criar uma nova disciplina
-    public void createSubject(int teacherId){
-		System.out.println("Insira o nome da disciplina:");
-		String nm = read.nextLine();
-		System.out.println("Insira a descricao da disciplina:");
-		String desc = read.nextLine();
-        Subject nmSubject = new Subject(nm,desc);
-        subjects.add(nmSubject);
-        
-        // Adiciona o Id da nova disciplina a lista do Professor
-        ((Teacher)users.get(teacherId)).addSubject(nmSubject.getId());
-    }
 }
