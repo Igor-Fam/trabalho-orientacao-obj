@@ -7,6 +7,8 @@ package moodle;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+import frame.*;
+
 
 public class Subject{
 	private static int tam=1;
@@ -46,20 +48,22 @@ public class Subject{
 		return description;
 	}
 
+	public List <Test> getTests() {
+		return tests;
+	}
+
+	public void setTests(List <Test> tests) {
+		this.tests = tests;
+	}
 
 	// Cria uma nova postagem
 
 	public void createPost(){
-		String titl, dx, tx;
-		System.out.println("Insira o Titulo:");
-		titl = read.nextLine();
-		System.out.println("Insira a data:");
-		dx = read.nextLine();
-		System.out.println("Insira o texto:");
-		tx = read.nextLine();
-		int tam = posts.size();
-		Post pst = new Post(tam,titl,dx,tx);
+		Post pst = new Post();
+		pst.setId(posts.size());
+		new Create_post_frame(pst).setVisible(true);
 		posts.add(pst);
 	}
+
 
 }

@@ -55,9 +55,8 @@ public class Moodle {
             Login.writeUser(student);
         }
         while(true){
-            Scanner s = new Scanner(System.in);
-            String nome = s.nextLine();
-            String senha = s.nextLine();
+            String nome = read.nextLine();
+            String senha = read.nextLine();
             Login.Authenticate(nome, senha);
         }
         //students = Login.readStudents();

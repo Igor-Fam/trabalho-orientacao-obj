@@ -11,12 +11,6 @@ public class Post {
     private String date;
     private String text;
     
-    public Post(int i, String tlte, String dt, String tx){
-        setId(i);
-        setTitle(tlte);
-        setDate(dt);
-        setText(tx);
-    }
 
     public void setId(int i){
         id = i;
