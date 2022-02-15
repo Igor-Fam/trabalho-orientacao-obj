@@ -67,9 +67,10 @@ public class Subject implements Listable{
 	// Cria uma nova postagem
 
 	public void createPost(){
-            Post pst = new Post();
-            new Create_post_frame(pst).setVisible(true);
-            posts.add(pst);
+		Post pst = new Post();
+		new Create_post_frame(pst).setVisible(true);
+		posts.add(pst);
+		SubjectFiles.editSubject(this);
 	}
 
         public void createTest(){
