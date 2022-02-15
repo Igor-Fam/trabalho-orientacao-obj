@@ -39,6 +39,15 @@ public class Test implements Listable{
         return title;
     }
 
+    public Question getQuestion(int i){
+        return questions.get(i);
+    }
+    
+    @Override
+    public String toString(){
+        return this.title;
+    }
+
     public void setDate(String t){
         date = t;
     }

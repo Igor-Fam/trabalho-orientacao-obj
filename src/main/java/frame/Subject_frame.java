@@ -4,19 +4,94 @@
  */
 package frame;
 
+import javax.swing.*;
+import javax.swing.event.*;
+import moodle.Post;
+import moodle.Subject;
+import moodle.Test;
+
 /**
  *
  * @author erick
  */
-public class Subject_frame extends javax.swing.JFrame {
+public class Subject_frame extends javax.swing.JFrame implements ListSelectionListener{
 
     /**
      * Creates new form Subject_frame
      */
+    
+    private Subject subj;
+    private Main_frame mf;
+    private JList list;
+    private int selected_index;
+    
+    DefaultListModel<Post> post_model = new DefaultListModel<>();
+    DefaultListModel<Test> test_model = new DefaultListModel<>();
+    
     public Subject_frame() {
         initComponents();
     }
-
+    
+    public Subject_frame(JList _list, Main_frame _mf){
+        list=_list;
+        mf=_mf;
+    }
+    
+    public Subject_frame(Subject _subj){
+        subj=_subj;
+        initComponents();
+        setup_sf();
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e){
+        if(!e.getValueIsAdjusting()){
+            initComponents();
+            selected_index = list.getSelectedIndex();
+            subj = (Subject) list.getModel().getElementAt(selected_index);
+            mf.dispose();
+            new Main_frame().setVisible(true);
+            this.setVisible(true);
+            setup_sf();
+            
+        }
+    }
+    
+    public void setup_sf(){
+        title.setText(subj.getName());
+        post_control();
+        test_control();
+    }
+    
+    public void post_control(){
+        for(Post pst : subj.getPosts()){
+            post_model.addElement(pst);
+        }
+        content_list_post.setModel(post_model);
+        content_list_post.addListSelectionListener(new Post_frame(content_list_post,this));
+    }
+    
+    public void test_control(){
+        for(Test tst : subj.getTests()){
+            test_model.addElement(tst);
+        }
+        content_list_test.setModel(test_model);
+        content_list_post.addListSelectionListener(new Test_Frame(content_list_post,this));
+    }
+    
+    public JList getLista_post(){
+        return content_list_post;
+    }
+    
+    public JList getLista_test(){
+        return content_list_test;
+    }
+    
+    public Subject getSubj(){
+        return subj;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,31 +103,18 @@ public class Subject_frame extends javax.swing.JFrame {
 
         top_panel = new javax.swing.JPanel();
         student_name = new javax.swing.JLabel();
-        leave_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        content = new javax.swing.JPanel();
+        content_pane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        content_list_post = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        content_list_test = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         student_name.setText("(Nome do Aluno)");
-
-        leave_button.setBackground(new java.awt.Color(204, 204, 204));
-        leave_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        leave_button.setForeground(new java.awt.Color(0, 204, 204));
-        leave_button.setText("Sair");
-        leave_button.setBorderPainted(false);
-        leave_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leave_buttonActionPerformed(evt);
-            }
-        });
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -69,87 +131,53 @@ public class Subject_frame extends javax.swing.JFrame {
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(student_name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(leave_button)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
         top_panelLayout.setVerticalGroup(
             top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(leave_button))
+                .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        content_pane.setName(""); // NOI18N
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(485, 50));
+        content_list_post.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        content_list_post.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(content_list_post);
+        content_list_post.getAccessibleContext().setAccessibleName("tab1");
 
-        jButton1.setText("<html>\nPostagem 3 <br>\n15/01/2022");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        content_pane.addTab("Postagens", jScrollPane2);
 
-        jButton2.setText("<html>\nPostagem 3 <br>\n15/01/2022");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        content_list_test.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        content_list_test.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(content_list_test);
 
-        jButton3.setText("<html>\nPostagem 3 <br>\n15/01/2022");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
-            .addComponent(jButton3)
-            .addComponent(jButton2)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 198, Short.MAX_VALUE))
-        );
-
-        jScrollPane2.setViewportView(jPanel2);
-
-        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
-        content.setLayout(contentLayout);
-        contentLayout.setHorizontalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-        );
-        contentLayout.setVerticalGroup(
-            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-        );
+        content_pane.addTab("Avaliacoes", jScrollPane3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(top_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(content_pane)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(top_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(content_pane, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void leave_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leave_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_leave_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,14 +215,13 @@ public class Subject_frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel content;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JList<Post> content_list_post;
+    private javax.swing.JList<Test> content_list_test;
+    private javax.swing.JTabbedPane content_pane;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton leave_button;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel student_name;
     private javax.swing.JLabel title;
     private javax.swing.JPanel top_panel;

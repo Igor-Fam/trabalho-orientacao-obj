@@ -14,8 +14,8 @@ public class Question {
         statement = s;
     }
 
-    public void setAlternatives(String [] a){
-        alternatives = a;
+    public void setAlternative(String a, int i){
+        alternatives[i] = a;
     }
 
     public void setCorrectAnswer(int c){
@@ -26,8 +26,8 @@ public class Question {
         return statement;
     }
 
-    public String [] getAlternatives(){
-        return alternatives;
+    public String getAlternative(int i){
+        return alternatives[i];
     }
 
     public boolean answerQuestion(int a){

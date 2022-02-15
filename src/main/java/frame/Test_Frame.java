@@ -4,19 +4,84 @@
  */
 package frame;
 
-/**
- *
- * @author erick
- */
-public class Test_Frame extends javax.swing.JFrame {
+import control.Login;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
+import javax.swing.JList;
+import javax.swing.event.*;
+import moodle.*;
 
-    /**
-     * Creates new form Test_Frame
-     */
+
+
+public class Test_Frame extends javax.swing.JFrame implements ListSelectionListener{
+    
+    private User user;
+    private Test test;
+    private JList list;
+    private Subject subj;
+    private Subject_frame sf;
+    private int selected_index;
+    private int quest_number;
+    private int nota;
+    
+    
     public Test_Frame() {
         initComponents();
     }
 
+    public Test_Frame(JList _list, Subject_frame _sf){
+        list=_list;
+        sf=_sf;
+        subj=_sf.getSubj();
+        quest_number = 1;
+        nota=0;
+        user = Login.authUser;
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if(!e.getValueIsAdjusting()){
+            initComponents();
+            selected_index = list.getSelectedIndex();
+            test = (Test) list.getModel().getElementAt(selected_index);
+            sf.dispose();
+            new Subject_frame(subj).setVisible(true);
+            this.setVisible(true);
+            title.setText(test.getTitle());
+            setup();
+        }
+    }
+    
+    public void setup(){
+        question_details.setText(test.getQuestion(quest_number-1).getStatement());
+        switch (quest_number){
+            case 1:
+                alternative_1.setText(test.getQuestion(quest_number-1).getAlternative(quest_number-1));
+                break;
+            case 2:
+                alternative_2.setText(test.getQuestion(quest_number-1).getAlternative(quest_number-1));
+                break;
+            case 3:
+                alternative_3.setText(test.getQuestion(quest_number-1).getAlternative(quest_number-1));
+                break;
+            case 4:
+                alternative_4.setText(test.getQuestion(quest_number-1).getAlternative(quest_number-1));
+                break;
+        }
+    }
+    
+    public int getSelectedButtonIndex(){
+        int i=1;
+        for(Enumeration<AbstractButton> buttons = alternativas_grupo.getElements();buttons.hasMoreElements();){
+            AbstractButton button = buttons.nextElement();
+            if(button.isSelected()){
+                return i;
+            }
+            i++;
+        }
+        return 0;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +94,6 @@ public class Test_Frame extends javax.swing.JFrame {
         alternativas_grupo = new javax.swing.ButtonGroup();
         top_panel = new javax.swing.JPanel();
         student_name = new javax.swing.JLabel();
-        leave_button = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         next_question_button = new javax.swing.JButton();
@@ -43,22 +107,12 @@ public class Test_Frame extends javax.swing.JFrame {
         alternative_3 = new javax.swing.JRadioButton();
         alternative_4 = new javax.swing.JRadioButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         student_name.setBackground(new java.awt.Color(255, 255, 255));
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         student_name.setText("(Nome do Aluno)");
-
-        leave_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        leave_button.setForeground(new java.awt.Color(0, 204, 204));
-        leave_button.setText("Sair");
-        leave_button.setBorderPainted(false);
-        leave_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leave_buttonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
         top_panel.setLayout(top_panelLayout);
@@ -67,17 +121,13 @@ public class Test_Frame extends javax.swing.JFrame {
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(student_name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(leave_button)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         top_panelLayout.setVerticalGroup(
             top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(leave_button)))
+                .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -88,6 +138,11 @@ public class Test_Frame extends javax.swing.JFrame {
         jPanel1.add(title, new java.awt.GridBagConstraints());
 
         next_question_button.setText("Próxima questão >>");
+        next_question_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                next_question_buttonActionPerformed(evt);
+            }
+        });
 
         question_number.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         question_number.setText("Questão 1)");
@@ -103,7 +158,7 @@ public class Test_Frame extends javax.swing.JFrame {
                 .addComponent(question_number)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(question_details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 326, Short.MAX_VALUE))
         );
         question_titleLayout.setVerticalGroup(
             question_titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,13 +260,21 @@ public class Test_Frame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void leave_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leave_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_leave_buttonActionPerformed
-
     private void alternative_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alternative_4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_alternative_4ActionPerformed
+
+    private void next_question_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_question_buttonActionPerformed
+        if(test.getQuestion(quest_number-1).answerQuestion(getSelectedButtonIndex())){
+            nota++;
+        }
+        quest_number++;
+        setup();
+        if(quest_number==5){
+            ((Student)user).addNota(subj.getId(), test.getId(), nota);
+            this.dispose();
+        }
+    }//GEN-LAST:event_next_question_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,7 +319,6 @@ public class Test_Frame extends javax.swing.JFrame {
     private javax.swing.JRadioButton alternative_4;
     private javax.swing.JPanel alternatives_panel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton leave_button;
     private javax.swing.JButton next_question_button;
     private javax.swing.JLabel question_details;
     private javax.swing.JLabel question_number;

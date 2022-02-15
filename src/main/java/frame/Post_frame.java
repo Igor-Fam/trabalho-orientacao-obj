@@ -4,19 +4,48 @@
  */
 package frame;
 
+import javax.swing.*;
+import javax.swing.event.*;
+import moodle.Post;
+import moodle.Subject;
+
 /**
  *
  * @author erick
  */
-public class Post_frame extends javax.swing.JFrame {
+public class Post_frame extends javax.swing.JFrame implements ListSelectionListener{
 
-    /**
-     * Creates new form Post_frame
-     */
+    private Post post;
+    private JList list;
+    private Subject subj;
+    private Subject_frame sf;
+    private int selected_index;
+    
     public Post_frame() {
         initComponents();
     }
 
+    public Post_frame(JList _list, Subject_frame _sf){
+        list=_list;
+        sf=_sf;
+        subj=_sf.getSubj();
+    }
+    
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if(!e.getValueIsAdjusting()){
+            initComponents();
+            selected_index = list.getSelectedIndex();
+            post = (Post) list.getModel().getElementAt(selected_index);
+            sf.dispose();
+            new Subject_frame(subj).setVisible(true);
+            this.setVisible(true);
+            title.setText(post.getTitle());
+            post_text_area.setText(post.getText());
+            post_date.setText(post.getSubtitle());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,28 +57,16 @@ public class Post_frame extends javax.swing.JFrame {
 
         top_panel = new javax.swing.JPanel();
         student_name = new javax.swing.JLabel();
-        leave_button = new javax.swing.JButton();
         scroll_pane = new javax.swing.JScrollPane();
         post_text_area = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        post_data = new javax.swing.JLabel();
+        post_date = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         student_name.setText("(Nome do Aluno)");
-
-        leave_button.setBackground(new java.awt.Color(204, 204, 204));
-        leave_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        leave_button.setForeground(new java.awt.Color(0, 204, 204));
-        leave_button.setText("Sair");
-        leave_button.setBorderPainted(false);
-        leave_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leave_buttonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
         top_panel.setLayout(top_panelLayout);
@@ -58,17 +75,13 @@ public class Post_frame extends javax.swing.JFrame {
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(student_name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(leave_button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         top_panelLayout.setVerticalGroup(
             top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(top_panelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(leave_button))
+                .addComponent(student_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -90,9 +103,9 @@ public class Post_frame extends javax.swing.JFrame {
         title.setText("Postagem 1");
         jPanel1.add(title, new java.awt.GridBagConstraints());
 
-        post_data.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        post_data.setForeground(new java.awt.Color(0, 204, 255));
-        post_data.setText("Data");
+        post_date.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        post_date.setForeground(new java.awt.Color(0, 204, 255));
+        post_date.setText("Data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,7 +114,7 @@ public class Post_frame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(post_data)
+                    .addComponent(post_date)
                     .addComponent(scroll_pane, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -114,18 +127,14 @@ public class Post_frame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scroll_pane, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(scroll_pane, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(post_data)
+                .addComponent(post_date)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void leave_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leave_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_leave_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,12 +173,12 @@ public class Post_frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton leave_button;
-    private javax.swing.JLabel post_data;
+    private javax.swing.JLabel post_date;
     private javax.swing.JTextArea post_text_area;
     private javax.swing.JScrollPane scroll_pane;
     private javax.swing.JLabel student_name;
     private javax.swing.JLabel title;
     private javax.swing.JPanel top_panel;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -4,6 +4,9 @@
  */
 package frame;
 
+import control.Login;
+import static java.lang.String.valueOf;
+
 /**
  *
  * @author erick
@@ -29,12 +32,10 @@ public class Login_frame extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         login_details = new javax.swing.JPanel();
         email_label = new javax.swing.JLabel();
-        email_textfield = new javax.swing.JTextField();
+        username_textfield = new javax.swing.JTextField();
         senha_label = new javax.swing.JLabel();
         password_textfield = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
         login_button = new javax.swing.JButton();
-        register_user = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -44,9 +45,9 @@ public class Login_frame extends javax.swing.JFrame {
         title.setText("Moodle");
 
         email_label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        email_label.setText("Email:");
+        email_label.setText("Username:");
 
-        email_textfield.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        username_textfield.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         senha_label.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         senha_label.setText("Senha:");
@@ -63,14 +64,14 @@ public class Login_frame extends javax.swing.JFrame {
                     .addComponent(senha_label)
                     .addComponent(password_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 195, Short.MAX_VALUE))
-            .addComponent(email_textfield)
+            .addComponent(username_textfield)
         );
         login_detailsLayout.setVerticalGroup(
             login_detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(login_detailsLayout.createSequentialGroup()
                 .addComponent(email_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(email_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(username_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(senha_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -82,35 +83,11 @@ public class Login_frame extends javax.swing.JFrame {
         login_button.setText("Login");
         login_button.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         login_button.setBorderPainted(false);
-
-        register_user.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        register_user.setForeground(new java.awt.Color(51, 204, 255));
-        register_user.setText("Cadastrar Usuário");
-        register_user.setBorderPainted(false);
-        register_user.addActionListener(new java.awt.event.ActionListener() {
+        login_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                register_userActionPerformed(evt);
+                login_buttonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(register_user)
-                    .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(login_button, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(register_user)
-                .addContainerGap())
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,9 +98,10 @@ public class Login_frame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(login_details, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(title)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(title)
+                            .addComponent(login_button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,18 +110,18 @@ public class Login_frame extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(login_details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(login_details, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(login_button)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void register_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_userActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_register_userActionPerformed
+    private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
+        Login.Authenticate(username_textfield.getText(), valueOf(password_textfield.getPassword()));
+    }//GEN-LAST:event_login_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,13 +160,11 @@ public class Login_frame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel email_label;
-    private javax.swing.JTextField email_textfield;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login_button;
     private javax.swing.JPanel login_details;
     private javax.swing.JPasswordField password_textfield;
-    private javax.swing.JButton register_user;
     private javax.swing.JLabel senha_label;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField username_textfield;
     // End of variables declaration//GEN-END:variables
 }

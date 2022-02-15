@@ -7,27 +7,22 @@ package moodle;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import control.Login;
-import control.SubjectFiles;
 import frame.*;
 
 
 public class Subject implements Listable{
 	private String id;
 	private String name;
-	private String department;
-	private String description;
+        private String department;
 	// Listas de Postagens e avaliacoes
 	private List <Post> posts = new ArrayList<>();
 	private List <Test> tests = new ArrayList<>();
 
 	static Scanner read = new Scanner(System.in);
 	
-	public Subject(String id_, String nm, String desc){
+	public Subject(String id_, String nm){
 		id = id_;
 		setName(nm);
-		setDescription(desc);
 	}
 
 	public Subject(){}
@@ -40,20 +35,8 @@ public class Subject implements Listable{
 		name = n;
 	}
 
-	public String getTitle(){
+	public String getName(){
 		return name;
-	}
-
-	public String getSubtitle(){
-		return department;
-	}
-
-	public void setDescription(String desc){
-		description = desc;
-	}
-
-	public String getDescription(){
-		return description;
 	}
 
 	public List <Test> getTests() {
@@ -63,37 +46,36 @@ public class Subject implements Listable{
 	public void setTests(List <Test> tests) {
 		this.tests = tests;
 	}
+        
+        public List <Post> getPosts(){
+            return posts;
+        }
+        
+        public String getTitle(){
+		return name;
+	}
 
-	public static void createSubject(){
-		Scanner s = new Scanner(System.in);
-		System.out.println("Insira o id da disciplina:");
-		String id = s.nextLine();
-		System.out.println("Insira o nome da disciplina:");
-		String nm = s.nextLine();
-		System.out.println("Insira a descricao da disciplina:");
-		String desc = s.nextLine();
-        Subject nmSubject = new Subject(id,nm,desc);
-        SubjectFiles.writeSubject(nmSubject);
-    }
-
+	public String getSubtitle(){
+		return department;
+	}
+           
+        @Override
+        public String toString(){
+            return this.name;
+        }
+        
 	// Cria uma nova postagem
 
 	public void createPost(){
-		Post pst = new Post();
-		pst.setId(posts.size());
-		new Create_post_frame(pst).setVisible(true);
-		posts.add(pst);
-		SubjectFiles.editSubject(this);
+            Post pst = new Post();
+            new Create_post_frame(pst).setVisible(true);
+            posts.add(pst);
 	}
 
-	public ArrayList<Student> getStudents(){
-		ArrayList<Student> students = Login.readStudents();
-		for (Student student : students) {
-			if(!student.subjects.contains(this.id)){
-				students.remove(student);
-			}
-		}
-		return students;
-	}
+        public void createTest(){
+            Test tst = new Test(posts.size());
+            new Create_test_frame(tst).setVisible(true);
+            tests.add(tst);
+        }
 
 }

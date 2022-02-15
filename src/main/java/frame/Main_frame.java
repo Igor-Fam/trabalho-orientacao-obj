@@ -4,18 +4,30 @@
  */
 package frame;
 
-/**
- *
- * @author erick
- */
+import control.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import moodle.Subject;
+
 public class Main_frame extends javax.swing.JFrame {
+
 
     /**
      * Creates new form Main_frame
      */
+    
+    DefaultListModel<Subject> model = new DefaultListModel<>();
+    ArrayList<Subject> disciplinas = new ArrayList<>();
+    
     public Main_frame() {
         initComponents();
-    }
+        for(String sub : Login.authUser.getSubjects()){
+            model.addElement(SubjectFiles.readSubject(sub));
+        }
+        content_list.setModel(model);
+        content_list.addListSelectionListener(new Subject_frame(content_list,this));
+}
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,9 +45,8 @@ public class Main_frame extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         content_panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        content_list = new javax.swing.JList<>();
+        cadastrar_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +84,7 @@ public class Main_frame extends javax.swing.JFrame {
                     .addComponent(leave_button)))
         );
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -81,31 +92,9 @@ public class Main_frame extends javax.swing.JFrame {
         title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(title);
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        jButton1.setText("<html>\nDisciplina 1\n<br>\nDescrição da disciplina");
-        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        jButton2.setText("jButton2");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(0, 241, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setViewportView(jPanel3);
+        content_list.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        content_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(content_list);
 
         javax.swing.GroupLayout content_panelLayout = new javax.swing.GroupLayout(content_panel);
         content_panel.setLayout(content_panelLayout);
@@ -115,10 +104,10 @@ public class Main_frame extends javax.swing.JFrame {
         );
         content_panelLayout.setVerticalGroup(
             content_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(content_panelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
         );
+
+        cadastrar_button.setText("Cadastrar Usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +119,11 @@ public class Main_frame extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cadastrar_button)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,6 +134,8 @@ public class Main_frame extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(content_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cadastrar_button)
                 .addContainerGap())
         );
 
@@ -148,9 +143,13 @@ public class Main_frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void leave_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leave_buttonActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_leave_buttonActionPerformed
 
+    public JList getLista(){
+        return content_list;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -185,13 +184,12 @@ public class Main_frame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cadastrar_button;
+    private javax.swing.JList<Subject> content_list;
     private javax.swing.JPanel content_panel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton leave_button;
     private javax.swing.JLabel student_name;

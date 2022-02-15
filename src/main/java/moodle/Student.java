@@ -29,5 +29,9 @@ public class Student extends User{
 	public ArrayList<String> getSubjects(){
 		return subjects;
 	}
+        
+        public void addNota(String subj, int test, int nota){
+            marks.put(subj, new HashMap(test,nota));
+        }
 
 }
