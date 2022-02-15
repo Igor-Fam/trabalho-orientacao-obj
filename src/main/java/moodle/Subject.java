@@ -80,7 +80,6 @@ public class Subject implements Listable{
 
 	public void createPost(){
 		Post pst = new Post();
-		pst.setId(posts.size());
 		new Create_post_frame(pst).setVisible(true);
 		posts.add(pst);
 		SubjectFiles.editSubject(this);

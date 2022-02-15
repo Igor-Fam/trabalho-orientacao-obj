@@ -4,10 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Admin extends User{
-    public Admin(String usr, String nm, String em, String pswrd){
+    public Admin(String usr, String nm, String pswrd){
 		setUsername(usr);
 		setName(nm);
-		setEmail(em);
 		setPassword(pswrd);
 		userType = 2;
 	}

@@ -5,18 +5,15 @@
 package moodle;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Teacher extends User{
-	
-	static Scanner read = new Scanner(System.in);
+
 	// Lista de disciplinas do professor
 	ArrayList <String> subjects = new ArrayList<>();
 
-	public Teacher(String usr, String nm, String em, String pswrd){
+	public Teacher(String usr, String nm, String pswrd){
 		setUsername(usr);
 		setName(nm);
-		setEmail(em);
 		setPassword(pswrd);
 		userType = 1;
 	}

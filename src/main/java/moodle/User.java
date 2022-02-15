@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public abstract class User {
     protected String username;
 	protected String name;
-	protected String email;
 	protected String password;
     protected int userType;
 
@@ -27,14 +26,6 @@ public abstract class User {
 
 	public String getName(){
 		return name;
-	}
-
-	public void setEmail(String em){
-		email = em;
-	}
-
-	public String getEmail(){
-		return email;
 	}
 
 	public void setPassword(String pswrd){

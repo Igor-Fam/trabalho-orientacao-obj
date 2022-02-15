@@ -10,12 +10,11 @@ import java.util.HashMap;
 public class Student extends User{
 	// Lista de disciplinas do aluno
 	ArrayList <String> subjects = new ArrayList<>();
-	HashMap<String, HashMap<Integer, Integer>> marks = new HashMap<>();
+	HashMap<String, HashMap<Integer, Float>> marks = new HashMap<>();
 
-	public Student(String usr, String nm, String em, String pswrd){
+	public Student(String usr, String nm, String pswrd){
 		setUsername(usr);
 		setName(nm);
-		setEmail(em);
 		setPassword(pswrd);
 		userType = 0;
 	}
