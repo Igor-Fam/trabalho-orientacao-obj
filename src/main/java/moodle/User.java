@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public abstract class User {
     protected String username;
-	protected String name;
-	protected String password;
+    protected String name;
+    protected String password;
     protected int userType;
 
     public User(){
@@ -35,6 +35,12 @@ public abstract class User {
 	public boolean verifyPassword(String pswrd){
 		return password.equals(pswrd);
 	}
+        
+        public int getuserType(){
+            return userType;
+        }
 
-	public abstract ArrayList<String> getSubjects(); 
+	public abstract ArrayList<String> getSubjects();
+        
+        public abstract void addSubject(String str);
 }

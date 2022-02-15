@@ -4,13 +4,14 @@
 
 package moodle;
 
+import control.Login;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Student extends User{
 	// Lista de disciplinas do aluno
 	ArrayList <String> subjects = new ArrayList<>();
-	HashMap<String, HashMap<Integer, Float>> marks = new HashMap<>();
+	HashMap<String, HashMap<Integer, Integer>> marks = new HashMap<>();
 
 	public Student(String usr, String nm, String pswrd){
 		setUsername(usr);
@@ -23,6 +24,7 @@ public class Student extends User{
 	public void addSubject(String subject){
 		subjects.add(subject);
 		marks.put(subject, new HashMap<>());
+                Login.editUser(this);
 	}
 
 	public ArrayList<String> getSubjects(){
@@ -31,6 +33,11 @@ public class Student extends User{
         
         public void addNota(String subj, int test, int nota){
             marks.put(subj, new HashMap(test,nota));
+        }
+        
+        @Override
+        public String toString(){
+            return this.name;
         }
 
 }

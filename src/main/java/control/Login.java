@@ -28,7 +28,6 @@ public class Login {
         }catch(FileNotFoundException e){
             System.out.println("Arquivo nao encontrado!");
         }
-
         return students;
     }
 

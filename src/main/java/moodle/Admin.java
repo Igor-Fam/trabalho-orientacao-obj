@@ -17,9 +17,14 @@ public class Admin extends User{
 		ArrayList<String> subjects = new ArrayList<String>();
 		for (File file : files) {
 			if (file.isFile()) {
-				subjects.add(file.getName());
+				subjects.add(file.getName().replace(".json", ""));
 			}
 		}
 		return subjects;
 	}
+        
+       public void addSubject(String i){
+           
+       }
+
 }

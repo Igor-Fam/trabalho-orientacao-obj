@@ -4,6 +4,8 @@
 
 package moodle;
 
+import control.Login;
+import control.SubjectFiles;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,9 +22,10 @@ public class Subject implements Listable{
 
 	static Scanner read = new Scanner(System.in);
 	
-	public Subject(String id_, String nm){
+	public Subject(String id_, String nm, String dp){
 		id = id_;
 		setName(nm);
+        department=dp;
 	}
 
 	public Subject(){}
@@ -67,16 +70,39 @@ public class Subject implements Listable{
 	// Cria uma nova postagem
 
 	public void createPost(){
-		Post pst = new Post();
-		new Create_post_frame(pst).setVisible(true);
-		posts.add(pst);
-		SubjectFiles.editSubject(this);
+            Post pst = new Post();
+            new Create_post_frame(pst).setVisible(true);
+            posts.add(pst);
+            SubjectFiles.editSubject(this);
 	}
 
         public void createTest(){
             Test tst = new Test(posts.size());
             new Create_test_frame(tst).setVisible(true);
             tests.add(tst);
+            SubjectFiles.editSubject(this);
+        }
+        
+        public ArrayList<Student> getStudents(){
+            ArrayList<Student> students = Login.readStudents();
+            ArrayList<Student> f_students = new ArrayList<>();
+            for (Student student : students) {
+                if(student.subjects.contains(this.id)){
+                    f_students.add(student);
+                }
+            }
+            return f_students;
+        }
+        
+        public ArrayList<Teacher> getTeachers(){
+            ArrayList<Teacher> teachers = Login.readTeachers();
+            ArrayList<Teacher> f_teachers = new ArrayList<>();
+            for (Teacher teacher : teachers) {
+                if(teacher.subjects.contains(this.id)){
+                    f_teachers.add(teacher);
+                }
+            }
+            return f_teachers;
         }
 
 }

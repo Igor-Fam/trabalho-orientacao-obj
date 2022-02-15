@@ -7,8 +7,6 @@ package moodle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import control.Login;
-
 public class Moodle {
 
     static Scanner read = new Scanner(System.in);
@@ -50,8 +48,8 @@ public class Moodle {
             Login.writeUser(student);
         }
         for(int i = 20; i<30; i++){
-            */User student = new Admin("admin", "admin", "admin");
-            Login.writeUser(student);/*
+            User student = new Admin("usuario"+i, "usuario", "usuario@usuario.com", ""+i);
+            Login.writeUser(student);
         }
         while(true){
             String nome = read.nextLine();

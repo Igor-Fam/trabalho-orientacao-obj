@@ -121,6 +121,8 @@ public class Login_frame extends javax.swing.JFrame {
 
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
         Login.Authenticate(username_textfield.getText(), valueOf(password_textfield.getPassword()));
+        new Main_frame().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_login_buttonActionPerformed
 
     /**
