@@ -11,12 +11,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import moodle.Admin;
-import moodle.Moodle;
 import moodle.Student;
 import moodle.Teacher;
 import moodle.User;
 
 public class Login {
+
+    public static User authUser;
 
     public static ArrayList<Student> readStudents(){
         ArrayList<Student> students = new ArrayList<>();
@@ -92,8 +93,8 @@ public class Login {
             //System.out.println(student.getUsername());
             if (student.getUsername().equals(usr)){
                 if (student.verifyPassword(pswrd)){
-                    Moodle.authUser = student;
-                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                    Login.authUser = student;
+                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
                 } else {
                     System.out.println("Senha invalida!");
                 }
@@ -105,8 +106,8 @@ public class Login {
             //System.out.println(teacher.getUsername());
             if (teacher.getUsername().equals(usr)){
                 if (teacher.verifyPassword(pswrd)){
-                    Moodle.authUser = teacher;
-                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                    Login.authUser = teacher;
+                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
                 } else {
                     System.out.println("Senha invalida!");
                 }
@@ -118,8 +119,8 @@ public class Login {
             //System.out.println(admin.getUsername());
             if (admin.getUsername().equals(usr)){
                 if (admin.verifyPassword(pswrd)){
-                    Moodle.authUser = admin;
-                    System.out.println("Bem vindo(a), " + Moodle.authUser.getName() + "!");
+                    Login.authUser = admin;
+                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
                 } else {
                     System.out.println("Senha invalida!");
                 }

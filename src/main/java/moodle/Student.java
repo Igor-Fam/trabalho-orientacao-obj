@@ -4,13 +4,12 @@
 
 package moodle;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Student extends User{
 	// Lista de disciplinas do aluno
-	List <String> subjects = new ArrayList<>();
+	ArrayList <String> subjects = new ArrayList<>();
 	HashMap<String, HashMap<Integer, Integer>> marks = new HashMap<>();
 
 	public Student(String usr, String nm, String em, String pswrd){
@@ -27,7 +26,7 @@ public class Student extends User{
 		marks.put(subject, new HashMap<>());
 	}
 
-	public List<String> getSubjects(){
+	public ArrayList<String> getSubjects(){
 		return subjects;
 	}
 

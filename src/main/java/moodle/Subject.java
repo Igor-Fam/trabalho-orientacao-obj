@@ -13,9 +13,10 @@ import control.SubjectFiles;
 import frame.*;
 
 
-public class Subject{
+public class Subject implements Listable{
 	private String id;
 	private String name;
+	private String department;
 	private String description;
 	// Listas de Postagens e avaliacoes
 	private List <Post> posts = new ArrayList<>();
@@ -39,8 +40,12 @@ public class Subject{
 		name = n;
 	}
 
-	public String getName(){
+	public String getTitle(){
 		return name;
+	}
+
+	public String getSubtitle(){
+		return department;
 	}
 
 	public void setDescription(String desc){

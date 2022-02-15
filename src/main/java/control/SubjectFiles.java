@@ -44,7 +44,6 @@ public class SubjectFiles {
         }catch(FileNotFoundException e){
             System.out.println("Arquivo nao encontrado!");
         }
-        System.out.println(subject.getName());
         return subject;
     }
 

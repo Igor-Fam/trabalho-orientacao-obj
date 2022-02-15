@@ -6,14 +6,21 @@ package moodle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
-public class Test {
+public class Test implements Listable{
     private int id;
     private String title;
+    private String date;
     List <Question> questions = new ArrayList<>();
 
     public Test(int i){
         id = i;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        date = dtf.format(now);
+
     }
 
     public void setId(int i){
@@ -30,6 +37,14 @@ public class Test {
 
     public String getTitle(){
         return title;
+    }
+
+    public void setDate(String t){
+        date = t;
+    }
+
+    public String getSubtitle(){
+        return date;
     }
     
 }

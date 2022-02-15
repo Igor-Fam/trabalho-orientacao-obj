@@ -1,5 +1,7 @@
 package moodle;
 
+import java.util.ArrayList;
+
 public abstract class User {
     protected String username;
 	protected String name;
@@ -42,4 +44,6 @@ public abstract class User {
 	public boolean verifyPassword(String pswrd){
 		return password.equals(pswrd);
 	}
+
+	public abstract ArrayList<String> getSubjects(); 
 }

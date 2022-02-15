@@ -4,14 +4,10 @@
 
 package moodle;
 
-import control.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Moodle {
-
-    public static User authUser;
 
     static Scanner read = new Scanner(System.in);
 
@@ -22,8 +18,9 @@ public class Moodle {
     static ArrayList <Student> students = new ArrayList<>();
     static ArrayList <User> users = new ArrayList<>();
     static ArrayList <Subject> subjects = new ArrayList<>();
-
+    
     public static void main(String[] args) {
+        
         /* Subject.createSubject();
         SubjectFiles.readSubject("q");
         SubjectFiles.deleteSubject("q"); */

@@ -4,13 +4,20 @@
 
 package moodle;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Post {
+public class Post implements Listable{
     private int id;
     private String title;
     private String date;
     private String text;
     
+    public Post(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        date = dtf.format(now);
+    }
 
     public void setId(int i){
         id = i;
@@ -32,7 +39,7 @@ public class Post {
         date=dt;
     }
 
-    public String getDate(){
+    public String getSubtitle(){
         return date;
     }
     
