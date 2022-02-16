@@ -23,6 +23,10 @@ public class Test implements Listable{
 
     }
 
+    public void addQuestion(String stat, String [] alts, int ca){
+        questions.add(new Question(stat, alts, ca));
+    }
+
     public void setId(int i){
         id = i;
     }

@@ -77,10 +77,8 @@ public class Subject implements Listable{
 	}
 
         public void createTest(){
-            Test tst = new Test(posts.size());
-            new Create_test_frame(tst).setVisible(true);
-            tests.add(tst);
-            SubjectFiles.editSubject(this);
+            Test tst = new Test(tests.size());
+            new Create_test_frame(tst,this).setVisible(true);
         }
         
         public ArrayList<Student> getStudents(){

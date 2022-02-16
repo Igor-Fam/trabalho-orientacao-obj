@@ -10,6 +10,13 @@ public class Question {
     private String [] alternatives = new String [4];
     private int correctAnswer;
 
+
+    public Question(String stat, String [] alts, int ca){
+        statement = stat;
+        alternatives = alts;
+        correctAnswer = ca;
+    }
+
     public void setStatement(String s){
         statement = s;
     }

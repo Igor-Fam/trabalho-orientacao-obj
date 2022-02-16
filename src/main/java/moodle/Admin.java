@@ -1,3 +1,6 @@
+// Erick Peterman Mendes - 202065557C
+// Igor Miranda Fam - 202065563C
+
 package moodle;
 
 import java.io.File;
@@ -12,6 +15,7 @@ public class Admin extends User{
 	}
 	
 	public ArrayList<String> getSubjects(){
+		new File("./Disciplinas").mkdirs();
 		File folder = new File("./Disciplinas");
 		File[] files = folder.listFiles();
 		ArrayList<String> subjects = new ArrayList<String>();
