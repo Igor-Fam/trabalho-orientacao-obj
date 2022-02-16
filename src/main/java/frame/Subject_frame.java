@@ -33,8 +33,7 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
     DefaultListModel<Post> post_model = new DefaultListModel<>();
     DefaultListModel<Test> test_model = new DefaultListModel<>();
     DefaultListModel<Object> users_model = new DefaultListModel<>();
-    DefaultListModel<Object> all_users_model = new DefaultListModel<>();
-    
+    DefaultListModel<Object> all_users_model = new DefaultListModel<>();    
     public Subject_frame() {
         initComponents();
     }
@@ -68,7 +67,6 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
     @Override
     public void valueChanged(ListSelectionEvent e){
         if(!e.getValueIsAdjusting()){
-            initComponents();
             selected_index = list.getSelectedIndex();
             subj = (Subject) list.getModel().getElementAt(selected_index);
             mf.dispose();
@@ -116,7 +114,6 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
         for(Teacher tcr : teachers){
             all_users_model.addElement(tcr);
         }
-        all_users_list.setModel(all_users_model);
     }
     
     public void post_control(){
@@ -172,10 +169,10 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
         create_new_test_button = new javax.swing.JButton();
         content_list_registered_users = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        registered_users_list = new javax.swing.JList<>();
+        registered_users_list = new javax.swing.JList<>(users_model);
         register_user = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        all_users_list = new javax.swing.JList<>();
+        all_users_list = new javax.swing.JList<>(all_users_model);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -358,7 +355,7 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
         pack();
     }// </editor-fold>                        
 
-    private void register_userActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void register_userActionPerformed(java.awt.event.ActionEvent evt) {                                          
         users_model.addElement(all_users_list.getSelectedValue());
         registered_users_list.setModel(users_model);
         ((User)all_users_list.getSelectedValue()).addSubject(subj.getId());
@@ -406,8 +403,9 @@ public class Subject_frame extends javax.swing.JFrame implements ListSelectionLi
             }
         });
     }
+    
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify                 
     private javax.swing.JList<Object> all_users_list;
     private javax.swing.JList<Post> content_list_post;
     private javax.swing.JPanel content_list_registered_users;

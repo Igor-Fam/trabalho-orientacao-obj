@@ -5,7 +5,7 @@
     "username": "bloodqueen",
     "name": "Juliana",
     "password": "123",
-    "userType": 0.0
+    "userType": 0
   },
   {
     "subjects": [],
@@ -13,19 +13,27 @@
     "username": "deathlord",
     "name": "Gabroel",
     "password": "123",
-    "userType": 0.0
+    "userType": 0
   },
   {
-    "subjects": [],
-    "marks": {},
+    "subjects": [
+      "q"
+    ],
+    "marks": {
+      "q": {}
+    },
     "username": "123",
     "name": "123",
     "password": "123",
-    "userType": 0.0
+    "userType": 0
   },
   {
-    "subjects": [],
-    "marks": {},
+    "subjects": [
+      "q"
+    ],
+    "marks": {
+      "q": {}
+    },
     "username": "1234",
     "name": "1234",
     "password": "1234",
