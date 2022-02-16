@@ -2,12 +2,14 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import moodle.Post;
-import moodle.Subject;
+
+import com.ufjf.controller.Login;
+import com.ufjf.model.Post;
+import com.ufjf.model.Subject;
 
 public class Post_frame extends javax.swing.JFrame implements ListSelectionListener{
 
@@ -57,7 +59,7 @@ public class Post_frame extends javax.swing.JFrame implements ListSelectionListe
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        student_name.setText("(Nome do Aluno)");
+        student_name.setText(Login.authUser.getName());
 
         javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
         top_panel.setLayout(top_panelLayout);

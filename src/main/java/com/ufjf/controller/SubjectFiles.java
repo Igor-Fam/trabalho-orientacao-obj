@@ -1,7 +1,7 @@
 // Erick Peterman Mendes - 202065557C
 // Igor Miranda Fam - 202065563C
 
-package control;
+package com.ufjf.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,10 +12,10 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import moodle.*;
+import com.ufjf.model.*;
 
 public class SubjectFiles {
-    public static void writeSubject(moodle.Subject subject){
+    public static void writeSubject(com.ufjf.model.Subject subject){
         Gson gson = new Gson();
 
         File f = new File("./Disciplinas/" + subject.getId() + ".json");

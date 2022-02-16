@@ -2,9 +2,9 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
-import moodle.*;
+import com.ufjf.model.*;
 
 
 public class Create_post_frame extends javax.swing.JFrame {

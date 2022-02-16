@@ -2,14 +2,14 @@
 // Igor Miranda Fam - 202065563C
 
 
-package moodle;
+package com.ufjf.model;
 
-import control.Login;
-import control.SubjectFiles;
+import com.ufjf.controller.Login;
+import com.ufjf.controller.SubjectFiles;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-import frame.*;
+import com.ufjf.view.*;
 
 
 public class Subject implements Listable{

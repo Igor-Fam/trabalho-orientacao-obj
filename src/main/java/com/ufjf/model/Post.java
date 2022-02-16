@@ -2,7 +2,7 @@
 // Igor Miranda Fam - 202065563C
 
 
-package moodle;
+package com.ufjf.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

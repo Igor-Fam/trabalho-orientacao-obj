@@ -2,7 +2,7 @@
 // Igor Miranda Fam - 202065563C
 
 
-package moodle;
+package com.ufjf.model;
 
 public class Question {
 

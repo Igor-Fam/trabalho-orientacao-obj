@@ -1,7 +1,7 @@
 // Erick Peterman Mendes - 202065557C
 // Igor Miranda Fam - 202065563C
 
-package control;
+package com.ufjf.controller;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,10 +13,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import moodle.Admin;
-import moodle.Student;
-import moodle.Teacher;
-import moodle.User;
+import com.ufjf.model.Admin;
+import com.ufjf.model.Student;
+import com.ufjf.model.Teacher;
+import com.ufjf.model.User;
 
 public class Login {
 
@@ -90,46 +90,49 @@ public class Login {
     }
 
     public static void Authenticate(String usr, String pswrd){
-        ArrayList<Student> students = readStudents();
-        for (Student student : students) {
-            //System.out.println(student.getUsername());
-            if (student.getUsername().equals(usr)){
-                if (student.verifyPassword(pswrd)){
-                    Login.authUser = student;
-                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
-                } else {
-                    System.out.println("Senha invalida!");
+        System.out.println(usr);
+        try{
+            ArrayList<Student> students = readStudents();
+            for (Student student : students) {
+                if (student.getUsername().equals(usr)){
+                    if (student.verifyPassword(pswrd)){
+                        Login.authUser = student;
+                        System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
+                    } else {
+                        System.out.println("Senha invalida!");
+                    }
+                    return;
                 }
-                return;
             }
-        }
-        ArrayList<Teacher> teachers = readTeachers();
-        for (Teacher teacher : teachers) {
-            //System.out.println(teacher.getUsername());
-            if (teacher.getUsername().equals(usr)){
-                if (teacher.verifyPassword(pswrd)){
-                    Login.authUser = teacher;
-                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
-                } else {
-                    System.out.println("Senha invalida!");
+            ArrayList<Teacher> teachers = readTeachers();
+            for (Teacher teacher : teachers) {
+                if (teacher.getUsername().equals(usr)){
+                    if (teacher.verifyPassword(pswrd)){
+                        Login.authUser = teacher;
+                        System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
+                    } else {
+                        System.out.println("Senha invalida!");
+                    }
+                    return;
                 }
-                return;
             }
-        }
-        ArrayList<Admin> admins = readAdmins();
-        for (Admin admin : admins) {
-            //System.out.println(admin.getUsername());
-            if (admin.getUsername().equals(usr)){
-                if (admin.verifyPassword(pswrd)){
-                    Login.authUser = admin;
-                    System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
-                } else {
-                    System.out.println("Senha invalida!");
+            ArrayList<Admin> admins = readAdmins();
+            for (Admin admin : admins) {
+                System.out.println(admin.getUsername());
+                if (admin.getUsername().equals(usr)){
+                    if (admin.verifyPassword(pswrd)){
+                        Login.authUser = admin;
+                        System.out.println("Bem vindo(a), " + Login.authUser.getName() + "!");
+                    } else {
+                        System.out.println("Senha invalida!");
+                    }
+                    return;
                 }
-                return;
             }
+            System.out.println("Nome de usuario invalido");
+        }catch(Exception e){
+            System.out.println("Falha no login!");
         }
-        System.out.println("Nome de usuario invalido");
     }
 
     public static boolean checkAvailableUsername(User user){

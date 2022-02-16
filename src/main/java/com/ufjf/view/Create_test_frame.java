@@ -2,15 +2,15 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 
-import control.SubjectFiles;
-import moodle.Subject;
-import moodle.Test;
+import com.ufjf.controller.SubjectFiles;
+import com.ufjf.model.Subject;
+import com.ufjf.model.Test;
 
 public class Create_test_frame extends javax.swing.JFrame {
 

@@ -2,14 +2,14 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
-import control.Login;
+import com.ufjf.controller.Login;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.JList;
 import javax.swing.event.*;
-import moodle.*;
+import com.ufjf.model.*;
 
 
 
@@ -106,7 +106,7 @@ public class Test_Frame extends javax.swing.JFrame implements ListSelectionListe
 
         student_name.setBackground(new java.awt.Color(255, 255, 255));
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        student_name.setText("(Nome do Aluno)");
+        student_name.setText(Login.authUser.getName());
 
         javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
         top_panel.setLayout(top_panelLayout);

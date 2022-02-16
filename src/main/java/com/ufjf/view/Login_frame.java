@@ -2,9 +2,12 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
-import control.Login;
+import com.ufjf.controller.Login;
+import com.ufjf.model.Admin;
+import com.ufjf.model.User;
+
 import static java.lang.String.valueOf;
 
 public class Login_frame extends javax.swing.JFrame {
@@ -106,13 +109,22 @@ public class Login_frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void login_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_buttonActionPerformed
-        Login.Authenticate(username_textfield.getText(), valueOf(password_textfield.getPassword()));
-        new Main_frame().setVisible(true);
-        this.dispose();
+        try{
+            Login.Authenticate(username_textfield.getText(), valueOf(password_textfield.getPassword()));
+            new Main_frame().setVisible(true);
+            this.dispose();
+        }catch(Exception e){
+            System.out.println("Erro no login!");
+        }
+
     }
 
 
     public static void main(String args[]) {
+        if(Login.readAdmins().isEmpty()){
+            User admin = new Admin("Admin", "admin", "admin");
+            Login.writeUser(admin);
+        }
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

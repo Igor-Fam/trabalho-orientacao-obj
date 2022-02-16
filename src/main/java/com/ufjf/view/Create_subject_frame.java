@@ -2,10 +2,10 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
-import control.SubjectFiles;
-import moodle.Subject;
+import com.ufjf.controller.SubjectFiles;
+import com.ufjf.model.Subject;
 
 public class Create_subject_frame extends javax.swing.JFrame {
 

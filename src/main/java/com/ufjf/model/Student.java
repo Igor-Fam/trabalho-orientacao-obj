@@ -2,9 +2,9 @@
 // Igor Miranda Fam - 202065563C
 
 
-package moodle;
+package com.ufjf.model;
 
-import control.Login;
+import com.ufjf.controller.Login;
 import java.util.ArrayList;
 import java.util.HashMap;
 

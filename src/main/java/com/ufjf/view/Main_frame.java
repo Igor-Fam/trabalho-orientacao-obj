@@ -2,12 +2,12 @@
 // Igor Miranda Fam - 202065563C
 
 
-package frame;
+package com.ufjf.view;
 
-import control.*;
+import com.ufjf.controller.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import moodle.Subject;
+import com.ufjf.model.Subject;
 
 public class Main_frame extends javax.swing.JFrame {
 
@@ -44,7 +44,7 @@ public class Main_frame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         student_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        student_name.setText("(Nome do Aluno)");
+        student_name.setText(Login.authUser.getName());
 
         leave_button.setBackground(new java.awt.Color(204, 204, 204));
         leave_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
